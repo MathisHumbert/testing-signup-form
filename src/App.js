@@ -32,6 +32,13 @@ function App() {
     if (signupInput.password !== signupInput.confirmPassword) {
       return setError("The password don't match. Try again");
     }
+
+    // setError('');
+    // setSignInput({
+    //   email: '',
+    //   password: '',
+    //   confirmPassword: '',
+    // });
   };
 
   return (
