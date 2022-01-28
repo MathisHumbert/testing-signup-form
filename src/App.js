@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import validator from 'validator';
 import './App.css';
 
 function App() {
@@ -8,6 +9,8 @@ function App() {
     confirmPassword: '',
   });
 
+  const [error, setError] = useState('');
+
   const handleChange = (e) => {
     setSignInput({
       ...signupInput,
@@ -15,8 +18,20 @@ function App() {
     });
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
     e.preventDefault();
+
+    if (!validator.isEmail(signupInput.email)) {
+      return setError('The email you input is invalid');
+    }
+    if (signupInput.password.length < 5) {
+      return setError(
+        'The password you entered should contain 5 or more character'
+      );
+    }
+    if (signupInput.password !== signupInput.confirmPassword) {
+      return setError("The password don't match. Try again");
+    }
   };
 
   return (
@@ -61,6 +76,7 @@ function App() {
             onChange={handleChange}
           />
         </div>
+        {error && <p className='text-danger'>{error}</p>}
         <button type='submit' className='btn btn-primary' onClick={handleClick}>
           Submit
         </button>
