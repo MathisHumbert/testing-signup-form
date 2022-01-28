@@ -1,7 +1,24 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [signupInput, setSignInput] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const handleChange = (e) => {
+    setSignInput({
+      ...signupInput,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleClick = () => {
+    e.preventDefault();
+  };
+
   return (
     <div className='container my-5'>
       <form>
@@ -14,6 +31,8 @@ function App() {
             id='email'
             name='email'
             className='form-control'
+            value={signupInput.email}
+            onChange={handleChange}
           />
         </div>
         <div className='mb-3'>
@@ -25,6 +44,8 @@ function App() {
             id='password'
             name='password'
             className='form-control'
+            value={signupInput.password}
+            onChange={handleChange}
           />
         </div>
         <div className='mb-3'>
@@ -34,10 +55,15 @@ function App() {
           <input
             type='password'
             id='confirm-password'
-            name='confirm-password'
+            name='confirmPassword'
             className='form-control'
+            value={signupInput.confirmPassword}
+            onChange={handleChange}
           />
         </div>
+        <button type='submit' className='btn btn-primary' onClick={handleClick}>
+          Submit
+        </button>
       </form>
     </div>
   );
